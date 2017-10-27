@@ -1,0 +1,9 @@
+%p#notice= notice
+
+%p
+  %b Qr code:
+  = @qr_tech.qr_code
+
+= link_to 'Edit', edit_qr_tech_path(@qr_tech)
+\|
+= link_to 'Back', qr_teches_path

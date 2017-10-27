@@ -1,0 +1,23 @@
+%h1 Listing check_ins
+
+%table
+  %thead
+    %tr
+      %th Sheck in url
+      %th Secret key
+      %th
+      %th
+      %th
+
+  %tbody
+    - @check_ins.each do |check_in|
+      %tr
+        %td= check_in.sheck_in_url
+        %td= check_in.secret_key
+        %td= link_to 'Show', check_in
+        %td= link_to 'Edit', edit_check_in_path(check_in)
+        %td= link_to 'Destroy', check_in, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Check in', new_check_in_path

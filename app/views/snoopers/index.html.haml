@@ -1,0 +1,23 @@
+%h1 Listing snoopers
+
+%table
+  %thead
+    %tr
+      %th Facebook token
+      %th Facebook event url
+      %th
+      %th
+      %th
+
+  %tbody
+    - @snoopers.each do |snooper|
+      %tr
+        %td= snooper.facebook_token
+        %td= snooper.facebook_event_url
+        %td= link_to 'Show', snooper
+        %td= link_to 'Edit', edit_snooper_path(snooper)
+        %td= link_to 'Destroy', snooper, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Snooper', new_snooper_path

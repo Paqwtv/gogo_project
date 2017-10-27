@@ -1,0 +1,13 @@
+= form_for @qr_tech do |f|
+  - if @qr_tech.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@qr_tech.errors.count, "error")} prohibited this qr_tech from being saved:"
+      %ul
+        - @qr_tech.errors.full_messages.each do |message|
+          %li= message
+
+  .field
+    = f.label :qr_code
+    = f.text_field :qr_code
+  .actions
+    = f.submit 'Save'

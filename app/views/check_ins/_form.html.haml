@@ -1,0 +1,16 @@
+= form_for @check_in do |f|
+  - if @check_in.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@check_in.errors.count, "error")} prohibited this check_in from being saved:"
+      %ul
+        - @check_in.errors.full_messages.each do |message|
+          %li= message
+
+  .field
+    = f.label :sheck_in_url
+    = f.check_box :sheck_in_url
+  .field
+    = f.label :secret_key
+    = f.check_box :secret_key
+  .actions
+    = f.submit 'Save'

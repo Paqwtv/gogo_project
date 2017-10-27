@@ -1,0 +1,9 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @chat_room.name
+
+= link_to 'Edit', edit_chat_room_path(@chat_room)
+\|
+= link_to 'Back', chat_rooms_path

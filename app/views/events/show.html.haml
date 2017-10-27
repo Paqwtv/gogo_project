@@ -1,0 +1,33 @@
+%p#notice= notice
+
+%p
+  %b Author:
+  = @event.author
+%p
+  %b Title:
+  = @event.title
+%p
+  %b Description:
+  = @event.description
+%p
+  %b Date time:
+  = @event.date_time
+%p
+  %b Latitude:
+  = @event.latitude
+%p
+  %b Longitude:
+  = @event.longitude
+%p
+  %b Private:
+  = @event.private
+%p
+  %b Address:
+  = @event.address
+%p
+  %b Checked by as:
+  = @event.checked_by_as
+
+= link_to 'Edit', edit_event_path(@event)
+\|
+= link_to 'Back', events_path

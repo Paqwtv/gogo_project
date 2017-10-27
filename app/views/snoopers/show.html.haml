@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Facebook token:
+  = @snooper.facebook_token
+%p
+  %b Facebook event url:
+  = @snooper.facebook_event_url
+
+= link_to 'Edit', edit_snooper_path(@snooper)
+\|
+= link_to 'Back', snoopers_path

@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Sheck in url:
+  = @check_in.sheck_in_url
+%p
+  %b Secret key:
+  = @check_in.secret_key
+
+= link_to 'Edit', edit_check_in_path(@check_in)
+\|
+= link_to 'Back', check_ins_path

@@ -1,0 +1,16 @@
+= form_for @snooper do |f|
+  - if @snooper.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@snooper.errors.count, "error")} prohibited this snooper from being saved:"
+      %ul
+        - @snooper.errors.full_messages.each do |message|
+          %li= message
+
+  .field
+    = f.label :facebook_token
+    = f.text_field :facebook_token
+  .field
+    = f.label :facebook_event_url
+    = f.text_field :facebook_event_url
+  .actions
+    = f.submit 'Save'

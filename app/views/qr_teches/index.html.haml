@@ -1,0 +1,21 @@
+%h1 Listing qr_teches
+
+%table
+  %thead
+    %tr
+      %th Qr code
+      %th
+      %th
+      %th
+
+  %tbody
+    - @qr_teches.each do |qr_tech|
+      %tr
+        %td= qr_tech.qr_code
+        %td= link_to 'Show', qr_tech
+        %td= link_to 'Edit', edit_qr_tech_path(qr_tech)
+        %td= link_to 'Destroy', qr_tech, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Qr tech', new_qr_tech_path
