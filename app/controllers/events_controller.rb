@@ -2,58 +2,71 @@ class EventsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :update, :destroy]
   before_action :set_event, only: [:show, :edit, :update, :destroy]
 
-  # GET /events
-  # GET /events.json
   def index
-    @events = Event.all
+    @page = params[:page] ? params[:page] : 1
+    @filter = EventsFilter.new(params[:filter])
+    if params[:filter]
+      #init Filter Object 
+      @events = @filter.records
+    else
+      @events = Event.all
+    end
+    @events = @events.paginate(:page => @page, per_page: Event.per_page)
+    
+    
+    respond_to do |format|
+      format.html
+      format.json {render partial: "list", locals: {events: @events }}
+    end
+
   end
 
-  # GET /events/1
-  # GET /events/1.json
+  def search
+    @filter = EventsFilter.new(params[:filter])
+    @events = @filter.records
+    @events = @events.paginate(:page => @page, per_page: Event.per_page)
+    render partial: "list", locals: {events: @events }
+  end
+
   def show
   end
 
-  # GET /events/new
   def new
-    @event = Event.new
+    if current_user.profile.user_name.blank?
+      redirect_to edit_profile_path(current_user.id), notice: 'Заполните ваш профиль перед созданием нового EVENT.'
+    else
+      @event = Event.new
+    end
   end
 
-  # GET /events/1/edit
   def edit
   end
 
-  # POST /events
-  # POST /events.json
   def create
-    @event = Event.new(event_params)
-
-    respond_to do |format|
-      if @event.save
-        format.html { redirect_to @event, notice: 'Event was successfully created.' }
-        format.json { render :show, status: :created, location: @event }
-      else
-        format.html { render :new }
-        format.json { render json: @event.errors, status: :unprocessable_entity }
+    @event = Event.new(event_params.merge(profile_id: current_user.profile.id))
+    @event.author = current_user.profile.user_name
+    @event.save
+    if @event.save
+      respond_to do |format|
+        format.html {redirect_to @event, notice: 'Event was successfully created.'}
+        format.json {render text: 'Yee!'}
       end
+    else
+      render :edit
     end
   end
 
-  # PATCH/PUT /events/1
-  # PATCH/PUT /events/1.json
   def update
-    respond_to do |format|
-      if @event.update(event_params)
-        format.html { redirect_to @event, notice: 'Event was successfully updated.' }
-        format.json { render :show, status: :ok, location: @event }
-      else
-        format.html { render :edit }
-        format.json { render json: @event.errors, status: :unprocessable_entity }
+    if @event.update(event_params)
+      respond_to do |format|
+        format.html { redirect_to @event, notice: 'Event was successfully updated.'}
+        format.json { render json: {a: 'Yee!'}}
       end
+    else
+      render :edit
     end
   end
 
-  # DELETE /events/1
-  # DELETE /events/1.json
   def destroy
     @event.destroy
     respond_to do |format|
@@ -63,6 +76,13 @@ class EventsController < ApplicationController
   end
 
   private
+
+    def append_cur_location
+      unless @lat_lng.blank?
+        @hash << { :lat=>@lat_lng[0], :lng=>@lat_lng[1]}
+      end   
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_event
       @event = Event.find(params[:id])
@@ -70,6 +90,6 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:author, :title, :description, :date_time, :latitude, :longitude, :private, :address, :checked_by_as)
+      params.require(:event).permit(:author, :title, :description, :date_time, :latitude, :longitude, :private, :contacts, :category_ids => [])
     end
 end

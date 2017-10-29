@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :event do
     author "MyString"
     title "MyString"

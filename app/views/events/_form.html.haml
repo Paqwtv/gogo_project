@@ -7,31 +7,29 @@
           %li= message
 
   .field
-    = f.label :author
-    = f.text_field :author
+    = current_user.profile.user_name
   .field
     = f.label :title
     = f.text_field :title
   .field
-    = f.label :description
+    = f.label :description, "Описание"
     = f.text_area :description
   .field
-    = f.label :date_time
+    = f.label :date_time, "Дата мероприятия"
     = f.text_field :date_time
   .field
-    = f.label :latitude
+    = f.label :latitude, "Широта"
     = f.text_field :latitude
   .field
-    = f.label :longitude
+    = f.label :longitude, "Долгота"
     = f.text_field :longitude
   .field
-    = f.label :private
+    = f.label :private, 'Приватное мероприятие?'
     = f.check_box :private
   .field
-    = f.label :address
+    = f.label :address, "Адрес"
     = f.text_field :address
   .field
-    = f.label :checked_by_as
-    = f.number_field :checked_by_as
+    = f.select :category_ids, options_for_select(Category.all.map {|category| [category.name, category.id]}, @event.category_ids), {}, :multiple => true
   .actions
     = f.submit 'Save'

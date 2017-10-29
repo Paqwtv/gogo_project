@@ -10,7 +10,7 @@ class Event < ApplicationRecord
   
   geocoded_by :address
   after_validation :geocode
-    scope :search, lambda {|query| where('title LIKE ?', "%#{query}%")}
+  scope :search, lambda {|query| where('title LIKE ?', "%#{query}%")}
 
   def self.per_page
     3

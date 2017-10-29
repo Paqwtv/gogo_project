@@ -1,37 +1,11 @@
-%h1 Listing events
+%span.filter Фильтр
+= form_tag events_path, method: "get",  id: "search_form" do
+  = render partial: "search", locals: {resourse: "filter", value: @filter.params[:query]}
+  = render partial: "category_checkbox"
+  = submit_tag "Найти"
 
-%table
-  %thead
-    %tr
-      %th Author
-      %th Title
-      %th Description
-      %th Date time
-      %th Latitude
-      %th Longitude
-      %th Private
-      %th Address
-      %th Checked by as
-      %th
-      %th
-      %th
+.list_body
+  #dashbord
+    = render partial: 'list', locals: {events: @events}
 
-  %tbody
-    - @events.each do |event|
-      %tr
-        %td= event.author
-        %td= event.title
-        %td= event.description
-        %td= event.date_time
-        %td= event.latitude
-        %td= event.longitude
-        %td= event.private
-        %td= event.address
-        %td= event.checked_by_as
-        %td= link_to 'Show', event
-        %td= link_to 'Edit', edit_event_path(event)
-        %td= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' }
-
-%br
-
-= link_to 'New Event', new_event_path
+    #map{style: 'width: 800px; height: 500px;'}
