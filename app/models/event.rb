@@ -9,11 +9,16 @@ class Event < ApplicationRecord
   belongs_to :qr_checkin, class_name: 'QrTech', foreign_key: 'qr_checkin_id',  optional: true
   
   geocoded_by :address
-  after_validation :geocode
+  reverse_geocoded_by :latitude, :longitude
+  after_validation :geocode, :reverse_geocode  # auto-fetch address
   scope :search, lambda {|query| where('title LIKE ?', "%#{query}%")}
 
   def self.per_page
     3
+  end
+
+  def point
+    
   end
 
 end

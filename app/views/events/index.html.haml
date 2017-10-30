@@ -18,7 +18,9 @@
   $('#map_tab_content').hide();
   $( document ).ready(function() {
     Events.ControlButtonsBehaviou.init(".events_block");
-    Events.MapBuilder.init_map();
+    $("#map_tab").click(function(){
+      Events.MapBuilder.init_map(#{raw @points.to_json});
+    });    
   });
   
   

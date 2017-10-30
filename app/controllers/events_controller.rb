@@ -12,8 +12,8 @@ class EventsController < ApplicationController
       @events = Event.all
     end
     @events = @events.paginate(:page => @page, per_page: Event.per_page)   
-    # @points = @events.map(&:point).merge(Profile.current_point(@lat_lng))
-    
+    @points = Profile.current_point(@lat_lng)
+    #@events.map(&:point).merge(Profile.current_point(@lat_lng))
     respond_to do |format|
       format.html
       format.json {render partial: "list", locals: {events: @events }}
@@ -90,6 +90,6 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:author, :title, :description, :date_time, :latitude, :longitude, :private, :contacts, :category_ids => [])
+      params.require(:event).permit(:author, :title, :description, :date_time, :latitude, :longitude, :private, :contacts, :address, :category_ids => [])
     end
 end
