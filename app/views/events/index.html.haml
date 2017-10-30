@@ -6,15 +6,19 @@
 
 .list_body
   #dashbord
-    - elems = [ { value: "Карта", id: 'map_tab'}, { value: "События", id: 'list_tab'}]
+    - elems = [ { value: "События", id: 'list_tab'}, { value: "Карта", id: 'map_tab'} ]
     = generate_control_panel('events_block', elems, 'list_tab')
 
-    .events_block_content#map_tab_content
-      #map{style: ' width: 800px; height: 500px;'}
+    .events_block_content#map_tab_content{style: "height: 800px; width: 1200px;"}
+      #map{style: "height: 800px; width: 1200px;"}
     .events_block_content#list_tab_content 
       = render partial: 'list', locals: {events: @events}
 
 :javascript
-  Event.MapBuilder.init_map();
   $('#map_tab_content').hide();
-  Events.ControlButtonsBehaviou.init(".events_block");
+  $( document ).ready(function() {
+    Events.ControlButtonsBehaviou.init(".events_block");
+    Events.MapBuilder.init_map();
+  });
+  
+  

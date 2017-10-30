@@ -11,8 +11,8 @@ class EventsController < ApplicationController
     else
       @events = Event.all
     end
-    @events = @events.paginate(:page => @page, per_page: Event.per_page)
-    
+    @events = @events.paginate(:page => @page, per_page: Event.per_page)   
+    # @points = @events.map(&:point).merge(Profile.current_point(@lat_lng))
     
     respond_to do |format|
       format.html

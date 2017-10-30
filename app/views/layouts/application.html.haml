@@ -6,7 +6,7 @@
     = csrf_meta_tags
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
-    = javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=AIzaSyAIvB_rZxPifLuLn6d9_mGZilXNipDnCos&callback=Event.MapBuilder.init_map"
+    = javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=AIzaSyAIvB_rZxPifLuLn6d9_mGZilXNipDnCos"
   %body
 
   %p#notice= notice
@@ -28,7 +28,7 @@
     %tr= link_to 'QR code', qr_teches_path
     %tr= link_to 'Ищейка', snoopers_path
   = yield
-  
-- unless @lat_lng
-  :javascript
-    Get.GeoLocation.init();
+  = @lat_lng.inspect
+  - unless @lat_lng
+    :javascript
+      Get.GeoLocation.init();

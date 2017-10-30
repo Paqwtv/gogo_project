@@ -14,7 +14,9 @@ namespace 'Events.ControlButtonsBehaviou', (exports) ->
 
     #set new states
     $(this).addClass('active')
-    $(content_id).show()
+    $(content_id).show('slow')
+    if id == 'map_tab'
+      Events.MapBuilder.init_map();
 
   exports.init = (class_name)->
     $(class_name).click tab_click_behaviour
