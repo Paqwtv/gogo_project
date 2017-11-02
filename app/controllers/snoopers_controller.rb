@@ -1,5 +1,5 @@
 class SnoopersController < ApplicationController
-  before_action :set_snooper, only: [:show, :edit, :update, :destroy]
+  before_action :set_snooper, only: %i(show edit update destroy)
 
   # GET /snoopers
   # GET /snoopers.json

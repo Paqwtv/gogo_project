@@ -6,12 +6,12 @@ class EventsFilter
 
   def default_hash
     {
-      query: "",
+      query: '',
       categories: []
     }
   end
 
-  def has_category? id
+  def category?(id)
     if params[:categories].blank?
       false
     else
@@ -20,14 +20,13 @@ class EventsFilter
   end
 
   def params
-    @params.blank? ?  default_hash : @params
-  end
-    
-  def records
-    result = Event.all
-    result = Event.search(@params[:query]) if  @params[:query]
-    result = result.includes(:categories).where(categories: {id: @params[:categories]}) if  @params[:categories]
-    result
+    @params.blank? ? default_hash : @params
   end
 
+  def records
+    result = Event.all
+    result = Event.search(@params[:query]) if @params[:query]
+    result = result.includes(:categories).where(categories: { id: @params[:categories] }) if @params[:categories]
+    result
+  end
 end

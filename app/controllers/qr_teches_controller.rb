@@ -9,8 +9,7 @@ class QrTechesController < ApplicationController
 
   # GET /qr_teches/1
   # GET /qr_teches/1.json
-  def show
-  end
+  def show; end
 
   # GET /qr_teches/new
   def new
@@ -18,8 +17,7 @@ class QrTechesController < ApplicationController
   end
 
   # GET /qr_teches/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /qr_teches
   # POST /qr_teches.json
@@ -62,6 +60,7 @@ class QrTechesController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_qr_tech
       @qr_tech = QrTech.find(params[:id])

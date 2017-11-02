@@ -4,18 +4,30 @@
 
 namespace 'Events.MapBuilder', (exports) ->
   make_map = (points) ->
-    points ||= { lat: 48.464228, lng: 35.045755 }
-    map = new google.maps.Map(document.getElementById('map'), zoom: 14, center: points)
+    cur_pos = { lat: 48.464228, lng: 35.045755 }
+    map = new google.maps.Map(document.getElementById('map'),
+      zoom: 14,
+      center: cur_pos)
+
+    Events.MapBuilder.add_markers(map, points)
+    
+  exports.make_marker = (map, point) ->
+    marker = new google.maps.Marker(
+      position: point.position,
+      icon: point.icon,
+      title: point.title,
+      map: map,
+      draggable: true,
+      animation: google.maps.Animation.DROP )
   
-  exports.add_markers = (points) ->
-    console.log(points)
-    marker = new google.maps.Marker( position: points, map: map )
+  exports.add_markers = (map, points) ->
+    points.map (point) ->
+      Events.MapBuilder.make_marker(map, point)
 
 
   exports.init_map = (points) -> 
-    console.log("Mapinit")
+    console.log(points)
     map = make_map(points)
-    icon = {url: 'http://files.softicons.com/download/web-icons/vista-map-markers-icons-by-icons-land/png/256x256/MapMarker_Marker_Outside_Azure.png',
-    size: new google.maps.Size(20, 20)}
-    marker = new google.maps.Marker( position: points, map: map, icon: icon, draggable: true, animation: google.maps.Animation.DROP )
+ 
+    
     

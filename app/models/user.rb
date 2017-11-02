@@ -11,5 +11,4 @@ class User < ApplicationRecord
   def create_user_profile
     (self.profile = Profile.new).save!
   end
-
 end

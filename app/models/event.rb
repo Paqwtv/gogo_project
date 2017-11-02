@@ -5,20 +5,21 @@ class Event < ApplicationRecord
   has_many :chat_rooms
   has_many :invites
   has_and_belongs_to_many :check_ins
-  belongs_to :qr_invite, class_name: 'QrTech', foreign_key: 'qr_invite_id',  optional: true
-  belongs_to :qr_checkin, class_name: 'QrTech', foreign_key: 'qr_checkin_id',  optional: true
-  
+  belongs_to :qr_invite, class_name: 'QrTech', foreign_key: 'qr_invite_id', optional: true
+  belongs_to :qr_checkin, class_name: 'QrTech', foreign_key: 'qr_checkin_id', optional: true
+
   geocoded_by :address
   reverse_geocoded_by :latitude, :longitude
-  after_validation :geocode, :reverse_geocode  # auto-fetch address
-  scope :search, lambda {|query| where('title LIKE ?', "%#{query}%")}
+  after_validation :geocode, :reverse_geocode # auto-fetch address
+  scope :search, lambda { |query| where('title LIKE ?', "%#{query}%") }
 
   def self.per_page
     3
   end
 
-  def point
-    
+  def to_point
+    { position: { lat: self.latitude, lng: self.longitude },
+      icon: 'http://maps.google.com/mapfiles/kml/paddle/grn-circle.png',
+      title: self.title }
   end
-
 end
