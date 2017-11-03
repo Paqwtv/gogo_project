@@ -12,7 +12,7 @@ class EventsController < ApplicationController
       @events = Event.all
     end
     @events = @events.paginate(page: @page, per_page: Event.per_page)
-    @points = @events.map(&:to_point).push(Profile.current_point(@lat_lng))
+    @points = MarkerFilter.new(@events, @lat_lng).make_marker
     respond_to do |format|
       format.html
       format.json { render partial: 'list', locals: { events: @events } }
