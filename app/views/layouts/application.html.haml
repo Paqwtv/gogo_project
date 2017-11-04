@@ -28,7 +28,6 @@
     %tr= link_to 'QR code', qr_teches_path
     %tr= link_to 'Ищейка', snoopers_path
   = yield
-  = @lat_lng.inspect
   - unless @lat_lng
     :javascript
       Get.GeoLocation.init();

@@ -1,4 +1,5 @@
-- Category.all.each do |category|
-  %label{:for => "category_#{category.id}"}
-    = check_box_tag 'filter[categories][]', category.id, @filter.category?(category.id.to_s), {:id => "category_#{category.id}", :class => "category-checkbox"}
-    = category.name
+#category_box
+  - Category.all.each do |category|
+    %label{:for => "category_#{category.id}"}
+      = check_box_tag 'filter[categories][]', category.id, @filter.category?(category.id.to_s), {:id => "category_#{category.id}", :class => "category-checkbox"}
+      = category.name
