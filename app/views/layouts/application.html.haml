@@ -20,15 +20,15 @@
       %span или
       = link_to 'Зарегистрироваться', new_user_registration_path
 
-    .block_panel
-      %tr= link_to 'Главная', root_path
-      %tr= link_to 'Профиль', profile_path(current_user.profile.id) if user_signed_in?
-      %tr= link_to 'Категории', categories_path
-      %tr= link_to 'Чаты', chat_rooms_path
-      %tr= link_to 'QR code', qr_teches_path
-      %tr= link_to 'Ищейка', snoopers_path
-    #content
-      = yield
+  .block_panel
+    %tr= link_to 'Главная', root_path
+    %tr= link_to 'Профиль', profile_path(current_user.profile.id) if user_signed_in?
+    %tr= link_to 'Категории', categories_path
+    %tr= link_to 'Чаты', chat_rooms_path
+    %tr= link_to 'QR code', qr_teches_path
+    %tr= link_to 'Ищейка', snoopers_path
+  #content
+    = yield
 
   - unless @lat_lng
     :javascript

@@ -1,9 +1,9 @@
-%span.filter Фильтр
-= form_tag events_path, method: "get",  id: "search_form" do
-  = render partial: "search", locals: {resourse: "filter", value: @filter.params[:query]}
-  = render partial: "category_checkbox", locals: {object: @filter, name: 'filter'}
-  = submit_tag "Найти", name: false
-
+.filter
+  %span Фильтр
+  = form_tag events_path, method: "get",  id: "search_form" do
+    = render partial: "search", locals: {resourse: "filter", value: @filter.params[:query]}
+    = render partial: "category_checkbox", locals: {object: @filter, name: 'filter'}
+    = submit_tag "Найти", name: false
 .list_body
   #dashbord
     - elems = [ { value: "События", id: 'list_tab'}, { value: "Карта", id: 'map_tab'} ]
