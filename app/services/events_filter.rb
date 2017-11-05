@@ -18,6 +18,10 @@ class EventsFilter
     end
   end
 
+  # def categories
+  #   Category.where(id: params[:categories])
+  # end
+
   def params
     @params.blank? ? default_hash : @params
   end

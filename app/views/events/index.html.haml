@@ -1,8 +1,8 @@
 %span.filter Фильтр
 = form_tag events_path, method: "get",  id: "search_form" do
   = render partial: "search", locals: {resourse: "filter", value: @filter.params[:query]}
-  = render partial: "category_checkbox"
-  = submit_tag "Найти"
+  = render partial: "category_checkbox", locals: {object: @filter, name: 'filter'}
+  = submit_tag "Найти", name: false
 
 .list_body
   #dashbord
@@ -10,8 +10,8 @@
     = generate_control_panel('events_block', elems, 'list_tab')
 
     .events_block_content#map_tab_content{style: "height: 800px; width: 1200px;"}
-      #map{style: "height: 800px; width: 1200px;"}
-    .events_block_content#list_tab_content 
+      = render 'map'
+    .events_block_content#list_tab_content
       = render partial: 'list', locals: {events: @events}
 
 :javascript
@@ -19,8 +19,15 @@
   $( document ).ready(function() {
     Events.ControlButtonsBehaviou.init(".events_block");
     $("#map_tab").click(function(){
-      Events.MapBuilder.init_map(#{raw @points.to_json});
+      Events.MapBuilder.init_map_with(#{raw @points.to_json});
     });    
   });
   
-  
+:javascript
+  $( document ).ready(function() {
+  $('#search_form').submit(function(e) {
+    e.preventDefault();
+    Event.SearchFilter.events_search('#search_form');
+    return false;
+    });
+  });

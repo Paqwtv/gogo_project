@@ -9,26 +9,27 @@
     = javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=AIzaSyAIvB_rZxPifLuLn6d9_mGZilXNipDnCos"
   %body
 
-  %p#notice= notice
-  .devise
-  - if user_signed_in?
-    %span Здравствуйте,
-    = current_user.profile.user_name
-    = link_to 'Выйти', destroy_user_session_path, method: :delete, data: { confirm: 'Вы точно хотите выйти?' }
-  - else    
-    = link_to 'Войти', new_user_session_path
-    %span или
-    = link_to 'Зарегистрироваться', new_user_registration_path
+    %p#notice= notice
+    .devise
+    - if user_signed_in?
+      %span Здравствуйте,
+      = current_user.profile.user_name
+      = link_to 'Выйти', destroy_user_session_path, method: :delete, data: { confirm: 'Вы точно хотите выйти?' }
+    - else    
+      = link_to 'Войти', new_user_session_path
+      %span или
+      = link_to 'Зарегистрироваться', new_user_registration_path
 
-  .block_panel
-    %tr= link_to 'Главная', root_path
-    %tr= link_to 'Профиль', profile_path(current_user.profile.id) if user_signed_in?
-    %tr= link_to 'Категории', categories_path
-    %tr= link_to 'Чаты', chat_rooms_path
-    %tr= link_to 'QR code', qr_teches_path
-    %tr= link_to 'Ищейка', snoopers_path
-  = yield
-  = @lat_lng.inspect
+    .block_panel
+      %tr= link_to 'Главная', root_path
+      %tr= link_to 'Профиль', profile_path(current_user.profile.id) if user_signed_in?
+      %tr= link_to 'Категории', categories_path
+      %tr= link_to 'Чаты', chat_rooms_path
+      %tr= link_to 'QR code', qr_teches_path
+      %tr= link_to 'Ищейка', snoopers_path
+    #content
+      = yield
+
   - unless @lat_lng
     :javascript
       Get.GeoLocation.init();

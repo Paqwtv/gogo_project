@@ -6,29 +6,24 @@ class EventsController < ApplicationController
     @page = params[:page] ? params[:page] : 1
     @filter = EventsFilter.new(params[:filter])
     if params[:filter]
-      # init Filter Object
       @events = @filter.records
     else
       @events = Event.all
     end
     @events = @events.paginate(page: @page, per_page: Event.per_page)
-    @points = MarkerFilter.new(@events, @lat_lng).make_marker
-    respond_to do |format|
-      format.html
-      format.json { render partial: 'list', locals: { events: @events } }
+    points_array = @events.map(&:to_point) << Profile.to_point(@lat_lng)
+    @points = MarkerFilter.new(points_array).markers_data
+    if params[:layout_false]
+      render partial: 'list', locals: { events: @events }
+    else
+      render
     end
-  end
-
-  def search
-    @filter = EventsFilter.new(params[:filter])
-    @events = @filter.records
-    @events = @events.paginate(page: @page, per_page: Event.per_page)
-    render partial: 'list', locals: { events: @events }
   end
 
   def show; end
 
   def new
+    @point = make_marker(Profile.to_point(@lat_lng))
     if current_user.profile.user_name.blank?
       redirect_to edit_profile_path(current_user.id), notice: 'Заполните ваш профиль перед созданием нового EVENT.'
     else
@@ -36,7 +31,9 @@ class EventsController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+    @point = make_marker(@event.to_point)
+  end
 
   def create
     @event = Event.new(event_params.merge(profile_id: current_user.profile.id))
@@ -53,6 +50,7 @@ class EventsController < ApplicationController
   end
 
   def update
+
     if @event.update(event_params)
       respond_to do |format|
         format.html { redirect_to @event, notice: 'Event was successfully updated.' }
@@ -84,8 +82,14 @@ class EventsController < ApplicationController
       @event = Event.find(params[:id])
     end
 
+    def make_marker point
+      MarkerFilter.new([point]).markers_data.first
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:author, :title, :description, :date_time, :latitude, :longitude, :private, :contacts, :address, category_ids: [])
+      e_params = params.require(:event).permit(:author, :title, :description, :date_time, :latitude, :longitude, :private, :contacts, :address, category_ids: [])
+      e_params[:category_ids] = params[:event][:categories] if params[:event][:categories]
+      e_params
     end
 end
