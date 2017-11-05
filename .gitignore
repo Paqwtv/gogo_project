@@ -16,6 +16,10 @@
 !/log/.keep
 !/tmp/.keep
 
+#Ignore RVM config files
+.ruby-gemset
+.ruby-version
+
 /node_modules
 /yarn-error.log
 
