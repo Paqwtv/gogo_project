@@ -4,6 +4,6 @@ class ApplicationController < ActionController::Base
   before_action :set_cur_location
 
   def set_cur_location
-    @lat_lng = cookies[:lat_lng].nil? ? nil : cookies[:lat_lng].split("|")
+    @lat_lng = cookies[:lat_lng].nil? ? nil : cookies[:lat_lng].split('|')
   end
 end

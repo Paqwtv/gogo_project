@@ -9,8 +9,7 @@ class CheckInsController < ApplicationController
 
   # GET /check_ins/1
   # GET /check_ins/1.json
-  def show
-  end
+  def show; end
 
   # GET /check_ins/new
   def new
@@ -18,8 +17,7 @@ class CheckInsController < ApplicationController
   end
 
   # GET /check_ins/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /check_ins
   # POST /check_ins.json
@@ -62,13 +60,14 @@ class CheckInsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_check_in
-      @check_in = CheckIn.find(params[:id])
-    end
+  
+  # Use callbacks to share common setup or constraints between actions.
+  def set_check_in
+    @check_in = CheckIn.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def check_in_params
-      params.require(:check_in).permit(:sheck_in_url, :secret_key)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def check_in_params
+    params.require(:check_in).permit(:sheck_in_url, :secret_key)
+  end
 end

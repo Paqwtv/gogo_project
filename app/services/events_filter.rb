@@ -1,3 +1,4 @@
+# Events filter behavior
 class EventsFilter
   def initialize(params)
     @params = params

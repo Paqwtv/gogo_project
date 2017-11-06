@@ -62,13 +62,13 @@ class ChatRoomsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_chat_room
-      @chat_room = ChatRoom.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_chat_room
+    @chat_room = ChatRoom.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def chat_room_params
-      params.require(:chat_room).permit(:name)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def chat_room_params
+    params.require(:chat_room).permit(:name)
+  end
 end

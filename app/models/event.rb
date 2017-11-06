@@ -17,8 +17,8 @@ class Event < ApplicationRecord
     3
   end
 
-  def category? id
-    categories.map{|e| e.id.to_s}.include?(id)
+  def category?(id)
+    categories.map{ |e| e.id.to_s }.include?(id)
   end
 
   def to_point

@@ -50,7 +50,6 @@ class EventsController < ApplicationController
   end
 
   def update
-
     if @event.update(event_params)
       respond_to do |format|
         format.html { redirect_to @event, notice: 'Event was successfully updated.' }
@@ -71,25 +70,25 @@ class EventsController < ApplicationController
 
   private
 
-    def append_cur_location
-      unless @lat_lng.blank?
-        @hash << { lat: @lat_lng[0], lng: @lat_lng[1] }
-      end
+  def append_cur_location
+    unless @lat_lng.blank?
+      @hash << { lat: @lat_lng[0], lng: @lat_lng[1] }
     end
+  end
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_event
-      @event = Event.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_event
+    @event = Event.find(params[:id])
+  end
 
-    def make_marker point
-      MarkerFilter.new([point]).markers_data.first
-    end
+  def make_marker point
+    MarkerFilter.new([point]).markers_data.first
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def event_params
-      e_params = params.require(:event).permit(:author, :title, :description, :date_time, :latitude, :longitude, :private, :contacts, :address, category_ids: [])
-      e_params[:category_ids] = params[:event][:categories] if params[:event][:categories]
-      e_params
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def event_params
+    e_params = params.require(:event).permit(:author, :title, :description, :date_time, :latitude, :longitude, :private, :contacts, :address, category_ids: [])
+    e_params[:category_ids] = params[:event][:categories] if params[:event][:categories]
+    e_params
+  end
 end
