@@ -10,6 +10,13 @@ namespace 'Events.MapBuilder', (exports) ->
       zoom: 14,
       center: cur_pos)
     
+  make_bounds = (map, points) ->
+    bounds = new google.maps.LatLngBounds()
+    points.map (point) ->
+      bounds.extend(point.position)
+    map.panToBounds(bounds)
+    map.fitBounds(bounds)
+   
   exports.make_marker = (map, point) ->
     marker = new google.maps.Marker(
       position: point.position,
@@ -28,16 +35,14 @@ namespace 'Events.MapBuilder', (exports) ->
     console.log(points)
     map = make_map()
     Events.MapBuilder.add_markers(map, points)
+    make_bounds(map, points)
 
   exports.init_map_with_one = (point) ->
     console.log(point)
+    lat_lng = point.position
     map = make_map()
     marker = Events.MapBuilder.make_marker(map, point)
-    loc = point.position
-    bounds = new google.maps.LatLngBounds()
-    bounds.extend(loc)
-    map.panToBounds(bounds)
-    map.fitBounds(bounds)
+    map.setCenter(new google.maps.LatLng(lat_lng['lat'],lat_lng['lng']))
     map.setZoom(15)
     Events.MapBuilder.add_listener(marker)
 

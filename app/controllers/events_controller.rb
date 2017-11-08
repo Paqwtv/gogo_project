@@ -11,7 +11,8 @@ class EventsController < ApplicationController
       @events = Event.all
     end
     @events = @events.paginate(page: @page, per_page: Event.per_page)
-    points_array = @events.map(&:to_point) << Profile.to_point(@lat_lng)
+    profile_points = @lat_lng.nil? ? nil : Profile.to_point(@lat_lng)
+    points_array = @events.map(&:to_point) << profile_points
     @points = MarkerFilter.new(points_array).markers_data
     if params[:layout_false]
       render partial: 'list', locals: { events: @events }
