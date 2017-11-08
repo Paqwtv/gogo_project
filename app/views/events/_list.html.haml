@@ -26,8 +26,9 @@
         %td= event.longitude
         %td= event.private
         %td= event.address
-        %td= link_to 'Edit', edit_event_path(event)
-        %td= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' }
+        - if user_signed_in? && current_user.id == event.profile.id
+          %td= link_to 'Edit', edit_event_path(event)
+          %td= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
 

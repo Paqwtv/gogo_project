@@ -20,7 +20,9 @@ class EventsController < ApplicationController
     end
   end
 
-  def show; end
+  def show
+    @point = make_marker(@event.to_point)
+  end
 
   def new
     @point = make_marker(Profile.to_point(@lat_lng))

@@ -9,8 +9,8 @@ class Profile < ApplicationRecord
   def self.to_point(point)
     {
       position: { lat: point[0].to_f, lng: point[1].to_f },
-      title: 'Current position',
-      icon: :blue
+      title: 'Вы тут',
+      icon: :cur
     }
   end
 end

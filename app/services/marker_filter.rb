@@ -1,8 +1,8 @@
 # map markers builder
 class MarkerFilter
   ICONS = {
-    green: 'http://maps.google.com/mapfiles/kml/paddle/grn-circle.png',
-    blue: 'http://maps.google.com/mapfiles/kml/paddle/blu-circle.png'
+    plase: 'https://png.icons8.com/marker/office/40',
+    cur: 'https://png.icons8.com/street-view/office/40'
   }.freeze
   def initialize(points)
     @points = points

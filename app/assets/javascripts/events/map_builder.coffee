@@ -3,6 +3,7 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 namespace 'Events.MapBuilder', (exports) ->
+
   make_map = () ->
     cur_pos = { lat: 48.464228, lng: 35.045755 }
     map = new google.maps.Map(document.getElementById('map'),
@@ -32,6 +33,12 @@ namespace 'Events.MapBuilder', (exports) ->
     console.log(point)
     map = make_map()
     marker = Events.MapBuilder.make_marker(map, point)
+    loc = point.position
+    bounds = new google.maps.LatLngBounds()
+    bounds.extend(loc)
+    map.panToBounds(bounds)
+    map.fitBounds(bounds)
+    map.setZoom(15)
     Events.MapBuilder.add_listener(marker)
 
   exports.add_listener = (marker) ->

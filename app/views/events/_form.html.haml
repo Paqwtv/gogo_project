@@ -35,9 +35,10 @@
         = render partial: "category_checkbox", locals: { object: @event, name: 'event' }
       .actions
         = f.submit 'Save'
-  
+
+
   .map_container{style: 'float: left; height: 30%; width: 45%;'}
-    #map{style: "height: 500px; width: 100%;"}
+    = render 'map'
 
 :javascript
   Events.MapBuilder.init_map_with_one(#{raw @point.to_json});

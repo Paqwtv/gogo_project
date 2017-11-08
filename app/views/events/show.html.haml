@@ -1,33 +1,41 @@
-%p#notice= notice
+.show_content{ style: 'float: left; width: 45%;' }
+  %p#notice= notice
 
-%p
-  %b Author:
-  = @event.author
-%p
-  %b Title:
-  = @event.title
-%p
-  %b Description:
-  = @event.description
-%p
-  %b Date time:
-  = @event.date_time
-%p
-  %b Latitude:
-  = @event.latitude
-%p
-  %b Longitude:
-  = @event.longitude
-%p
-  %b Private:
-  = @event.private
-%p
-  %b Address:
-  = @event.address
-%p
-  %b Checked by as:
-  = @event.checked_by_as
+  %p
+    %b Author:
+    = @event.author
+  %p
+    %b Title:
+    = @event.title
+  %p
+    %b Description:
+    = @event.description
+  %p
+    %b Date time:
+    = @event.date_time
+  %p
+    %b Latitude:
+    = @event.latitude
+  %p
+    %b Longitude:
+    = @event.longitude
+  %p
+    %b Private:
+    = @event.private
+  %p
+    %b Address:
+    = @event.address
+  %p
+    %b Checked by as:
+    = @event.checked_by_as
 
-= link_to 'Edit', edit_event_path(@event)
-\|
-= link_to 'Back', events_path
+
+  = link_to 'Edit', edit_event_path(@event)
+  \|
+  = link_to 'Back', events_path
+
+.map_container{ style: 'float: left; height: 30%; width: 45%;' }
+  = render 'map'
+
+:javascript
+  Events.MapBuilder.init_map_with_one(#{raw @point.to_json});
