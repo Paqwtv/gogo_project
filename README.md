@@ -1,24 +1,10 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Greetings my friend! You visited the repository, where we are working on a wonderful project that will allow you to monitor and manage events in your city.
 
-Things you may want to cover:
+The project is under development and we are working hard to deploy the first version of the site.
 
 * Ruby version 2.4.1
 
-* System dependencies
-
-* Configuration
-
 * Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+  The project comes without a `database.yml` file, so you have to create it yourself.
