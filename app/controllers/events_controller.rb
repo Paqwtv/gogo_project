@@ -73,12 +73,6 @@ class EventsController < ApplicationController
 
   private
 
-  def append_cur_location
-    unless @lat_lng.blank?
-      @hash << { lat: @lat_lng[0], lng: @lat_lng[1] }
-    end
-  end
-
   # Use callbacks to share common setup or constraints between actions.
   def set_event
     @event = Event.find(params[:id])

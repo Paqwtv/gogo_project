@@ -11,7 +11,20 @@ class Event < ApplicationRecord
   geocoded_by :address
   after_validation :geocode # auto-fetch address
 
+  before_save :address?, :lat_lng?
+
   scope :search, lambda { |query| where('title LIKE ?', "%#{query}%") }
+
+  def address?
+    unless self.latitude.blank? && self.longitude.blank?
+      self.address.blank? ? (reverse_geocoded_by :latitude, :longitude, address: :location) : self.address
+      :reverse_geocode
+    end
+  end
+
+  def lat_lng?
+    
+  end
 
   def self.per_page
     3

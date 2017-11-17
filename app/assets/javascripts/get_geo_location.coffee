@@ -7,5 +7,4 @@ namespace 'Get.GeoLocation', (exports) ->
     document.cookie = 'lat_lng=' + escape(cookie_val)
 
   exports.init = ->
-    console.log('cur_pos')
     getGeoLocation()

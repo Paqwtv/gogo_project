@@ -16,7 +16,13 @@ namespace 'Events.MapBuilder', (exports) ->
       bounds.extend(point.position)
     map.panToBounds(bounds)
     map.fitBounds(bounds)
-   
+  
+  set_value_to_input = (latitude, longitude) ->
+    $("#event_latitude").val(latitude)
+    $("#event_longitude").val(longitude)
+    #geocode_location(latitude, longitude)
+
+
   exports.make_marker = (map, point) ->
     marker = new google.maps.Marker(
       position: point.position,
@@ -44,16 +50,16 @@ namespace 'Events.MapBuilder', (exports) ->
     marker = Events.MapBuilder.make_marker(map, point)
     map.setCenter(new google.maps.LatLng(lat_lng['lat'],lat_lng['lng']))
     map.setZoom(15)
-    Events.MapBuilder.add_listener(marker)
+    latitude = point.position['lat']
+    longitude = point.position['lng']
+    set_value_to_input(point.position['lat'], point.position['lng'])
+    Events.MapBuilder.add_listener(marker, point)
 
-  exports.add_listener = (marker) ->
+  exports.add_listener = (marker, point) ->
     google.maps.event.addListener(marker, "dragend", (event) ->
       latitude = event.latLng.lat()
       longitude = event.latLng.lng()
-      console.log( latitude + ', ' + longitude ) 
-      $("#event_latitude").val(latitude)
-      $("#event_longitude").val(longitude) 
-      geocode_location(latitude, longitude)
+      set_value_to_input(latitude, longitude)
     )
 
   geocode_location = (lat, lng) ->
