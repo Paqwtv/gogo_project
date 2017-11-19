@@ -8,9 +8,10 @@ class Event < ApplicationRecord
   belongs_to :qr_invite, class_name: 'QrTech', foreign_key: 'qr_invite_id', optional: true
   belongs_to :qr_checkin, class_name: 'QrTech', foreign_key: 'qr_checkin_id', optional: true
 
-  geocoded_by :address if self.present?
-  reverse_geocoded_by :latitude, :longitude# if self.present?
-  after_validation :geocode, :reverse_geocode # auto-fetch address
+  geocoded_by :address
+  reverse_geocoded_by :latitude, :longitude
+  after_validation :geocode, if: lambda { |obj| obj.address.present? && obj.address_changed? }
+  after_validation :reverse_geocode, if: lambda { |obj| obj.latitude_changed? || obj.longitude_changed? }
 
   scope :search, lambda { |query| where('title LIKE ?', "%#{query}%") }
 
