@@ -8,7 +8,6 @@
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
     = javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=AIzaSyAIvB_rZxPifLuLn6d9_mGZilXNipDnCos"
     = javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
-    = javascript_include_tag "/jquery.geocomplete.js"
   %body
 
     %p#notice= notice
@@ -31,7 +30,7 @@
     %tr= link_to 'Ищейка', snoopers_path
   #content
     = yield
-
+  = javascript_include_tag "geocomplete/jquery.geocomplete"
   - unless @lat_lng
     :javascript
       Get.GeoLocation.init();

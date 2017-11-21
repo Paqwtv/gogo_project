@@ -9,7 +9,7 @@ class MarkerFilter
   end
 
   def markers_data
-    @points.map { |point| make_from point }
+    @points.map { |point| make_from(point) }
   end
 
   def make_from(point)
