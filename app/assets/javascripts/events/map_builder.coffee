@@ -21,6 +21,9 @@ namespace 'Events.MapBuilder', (exports) ->
     map.setZoom(15)
     set_value_to_input(lat, lng)
     add_listener(marker, point)
+    $('#event_address').geocomplete({
+      map: "#map"
+      })
 
   make_map = () ->
     cur_pos = { lat: 48.464228, lng: 35.045755 }
@@ -58,7 +61,7 @@ namespace 'Events.MapBuilder', (exports) ->
   set_value_to_input = (latitude, longitude) ->
     $("#event_latitude").val(latitude)
     $("#event_longitude").val(longitude)
-    geocode_location(latitude, longitude)
+    # geocode_location(latitude, longitude)
 
   geocode_location = (lat, lng) ->
     geocoder = new google.maps.Geocoder()
