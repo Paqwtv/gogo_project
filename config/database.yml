@@ -25,8 +25,10 @@ default: &default
   host: localhost
 
 development:
-  <<: *default
-  database: gogo_project_development
+  adapter: postgresql
+  host: localhost
+  username: user
+  database: app-dev
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
