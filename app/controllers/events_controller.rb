@@ -36,6 +36,7 @@ class EventsController < ApplicationController
 
   def edit
     @point = make_marker(@event.to_point)
+    authorize! :edit, @user
   end
 
   def create

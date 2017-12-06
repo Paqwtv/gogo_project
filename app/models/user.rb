@@ -8,6 +8,18 @@ class User < ApplicationRecord
 
   after_create :create_user_profile
 
+  def admin?
+    role == 'admin'
+  end
+
+  def writer?
+    role == 'writer'
+  end
+
+  def staff?
+    role == 'staff'
+  end
+
   def create_user_profile
     (self.profile = Profile.new).save!
   end
