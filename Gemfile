@@ -68,3 +68,5 @@ gem "haml-rails", "~> 1.0"
 gem "geocoder"
 
 gem 'will_paginate', '~> 3.1.0'
+
+gem 'cancan', '~>1.6.10'
