@@ -6,6 +6,8 @@ class Profile < ApplicationRecord
   has_and_belongs_to_many :categories
   has_and_belongs_to_many :chat_rooms
 
+  validates :user_name, :gender, presence: true
+
   def self.to_point(point)
     {
       position: { lat: point[0].to_f, lng: point[1].to_f },

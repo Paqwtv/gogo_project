@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # GET /users
@@ -25,9 +26,8 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
-
     if @user.save
-      redirect_to @user.profile, notice: 'User was successfully created.'
+      redirect_to edit_profile_path(current_user.id), notice: 'Учетная запись создана, заполните Ваш профиль'
     end
   end
 
